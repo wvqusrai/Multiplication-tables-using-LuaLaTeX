@@ -1,0 +1,47 @@
+%\documentclass[12pt]{article}
+\documentclass[12pt,a4paper,landscape]{article}
+\usepackage{luacode}
+\usepackage{caption}
+\usepackage[margin=0pt]{geometry}% 
+\usepackage[table]{xcolor}
+\usepackage{floatrow}
+\floatsetup[table]{capposition=top}
+
+
+\begin{luacode*}
+function mymult(n)
+  for j = 1, 10, 1 do
+    for i = n-5+1, n do
+      tex.print(string.format('%d & $\\times$ & %d & = & %d ', i, j, (i * j)))
+      if i < n then
+        tex.print(' & ')
+      else
+        tex.print("\\\\\\hline")
+      end
+    end
+  end
+end
+\end{luacode*}
+
+\newcommand{\mymult}[1]{\luadirect{mymult(#1)}}
+
+
+\begin{document}
+\begin{table}[t]
+\rowcolors{2}{gray!18}{white}
+\begin{tabular}{|r c r c r|r c r c r|r c r c r|r c r c r|r c r c r|}\hline
+\rowcolor{gray!18}
+\mymult{5}
+\end{tabular}
+\caption*{Multiplication tables for 1 to 5}
+\end{table}
+\begin{table}[t]
+\rowcolors{2}{gray!18}{white}
+\begin{tabular}{|r c r c r|r c r c r|r c r c r|r c r c r|r c r c r|}\hline
+\rowcolor{gray!18}
+\mymult{10}
+\end{tabular}
+\caption*{Multiplication tables for 6 to 10}
+\end{table}
+\end{document}
+
